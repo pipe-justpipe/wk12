@@ -19,3 +19,22 @@
  
 // const generatorButton = document.getElementById('generate-button');
 // generatorButton.addEventListener('click', getRandomQuote);
+
+async function fetchRandomQuote() {
+    try {
+      const response = await fetch('https://api.quotable.io/random');
+      const data = await response.json();
+
+      if (response.ok) {
+        const quoteTextElement = document.getElementById('quote-text');
+        quoteTextElement.textContent = `"${data.content}" - ${data.author}`;
+      } else {
+        console.error('Error fetching quote:', data);
+      }
+    } catch (error) {
+      console.error('Error during fetch:', error);
+    }
+  }
+
+  // Fetch a random quote when the page loads
+  document.addEventListener('DOMContentLoaded', fetchRandomQuote);
